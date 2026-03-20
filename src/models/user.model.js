@@ -33,15 +33,6 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    roleId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "role",
-      index: true,
-    },
-    resume:[{
-      type:mongoose.Schema.Types.ObjectId,
-      ref:"resume"
-  }],
   },
   {
     timestamps: true,

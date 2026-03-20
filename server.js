@@ -8,7 +8,7 @@ import "./src/workers/emailWorker.js";
 const {PORT} = config;
 const startServer = async()=>{
     try {
-        await connecDb();
+        await connecDb()
 
         await connectRedis();
 
