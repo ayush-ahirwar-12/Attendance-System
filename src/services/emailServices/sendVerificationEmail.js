@@ -2,17 +2,17 @@ import axios from "axios";
 import config from "../../config/environment.js"
 const {BREVO_API_KEY} = config;
 
-let FRONTEND_URL = "http://localhost:8000";
+let FRONTEND_URL = "http://localhost:3000";
 const BREVO_API = BREVO_API_KEY;
 const BREVO_URL = "https://api.brevo.com/v3/smtp/email";
 
 export async function sendVerificationEmail(user) {
-  const verificationLink = `${FRONTEND_URL}/api/auth/user-verification/${user.id}`;
+  const verificationLink = `${FRONTEND_URL}/user-verification/${user.id}`;
 
   try {
     const payload = {
       sender: {
-        name: "AI-Resume Extractor",
+        name: "Attendance system",
         email: "ayushahirwar04@gmail.com",
       },
       to: [{ email: user.email, name: user.name || "candidate" }],

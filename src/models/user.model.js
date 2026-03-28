@@ -29,10 +29,23 @@ const userSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+    faceDescriptor: {
+      type: [Number], // 128-d vector
+      required: true,
+    },
     isVerified: {
       type: Boolean,
       default: false,
     },
+    roleId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "role",
+      index: true,
+    },
+    resume: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "resume"
+    }],
   },
   {
     timestamps: true,

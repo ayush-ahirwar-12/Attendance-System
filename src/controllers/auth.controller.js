@@ -69,6 +69,8 @@ class AuthController {
   update = async (req, res, next) => {
     try {
       const userId = req.params.id;
+      console.log("userid-->",userId);
+      
       const newData = req.body;
       const result =await this.UserService.update(userId, newData);
 

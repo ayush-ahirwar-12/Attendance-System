@@ -10,7 +10,7 @@ router.post("/register",authController.register);
 
 router.post("/login",authController.login);
 
-router.patch("/user-verification/:id",authMiddleware,authController.update);
+router.post("/update/:id",authController.update);
 
 router.post("/logout",authMiddleware,authController.logout);
 

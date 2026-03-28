@@ -1,9 +1,7 @@
-import { tryCatch } from "bullmq";
 import userModel from "../../models/user.model.js";
 import IUserRepository from "../contracts/IUserRepository.js";
 import { AppError } from "../../utils/errors.js";
 import mongoose from "mongoose";
-import UserModel from "../../models/user.model.js";
 
 class MongoUserRepository extends IUserRepository {
   async createUser(data) {
