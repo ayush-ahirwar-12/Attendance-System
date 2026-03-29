@@ -44,8 +44,6 @@ class UserService {
     };
   } ''
   async createUser(data) {
-    console.log("data---->", data);
-
     const email = data.email.toLowerCase().trim();
     const cacheKey = `user:email:${email}`;
 
@@ -60,6 +58,10 @@ class UserService {
     if (isExist) {
       throw new Error("Email already exists", 409);
     };
+
+    if (!Array.isArray(data.faceDescriptor) || data.faceDescriptor.length !== 128) {
+      throw new AppError("Invalid face descriptor data",500);
+    }
 
     const user = await this.UserRepository.createUser({ ...data, email });
 
@@ -219,7 +221,7 @@ class UserService {
       JSON.stringify(safeUser),
       3600
     );
-        return safeUser;
+    return safeUser;
   }
 
 
