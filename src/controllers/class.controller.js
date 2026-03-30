@@ -17,3 +17,5 @@ class classController {
         }
     }
 }
+
+export default new classController();
