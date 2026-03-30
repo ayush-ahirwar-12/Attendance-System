@@ -45,4 +45,7 @@ const attendanceSchema = new mongoose.Schema({
 
 }, { timestamps: true });
 
-export const attendanceModel = mongoose.model("attendance",attendanceSchema);
+export const attendanceModel = mongoose.model("attendance",attendanceSchema.index(
+  { student: 1, qrSession: 1 },
+  { unique: true }
+));
