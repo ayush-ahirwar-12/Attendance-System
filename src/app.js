@@ -3,6 +3,8 @@ import cookie from "cookie-parser";
 import cors from "cors"
 import AuthRoute from "./routes/auth.route.js";
 import ClassRoute from "./routes/class.route.js"
+import RoleRoute from "./routes/role.route.js"
+import UserRoute from './routes/user.route.js'
 
 const app = express()
 app.use(express.json())
@@ -14,6 +16,8 @@ app.use(cors({
 
 app.use("/api/auth",AuthRoute);
 app.use("/api/class",ClassRoute);
+app.use("/api/role",RoleRoute);
+app.use("/api/auth",UserRoute)
 
 
 

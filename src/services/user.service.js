@@ -147,6 +147,9 @@ class UserService {
         isVerified: safeUser?.isVerified,
       };
 
+      console.log("jwtPayload--->",jwtPayload);
+      
+
       const token = jwt.sign(jwtPayload, JWT_SECRET, { expiresIn: "1h" });
       const refreshToken = jwt.sign({ id: userWithRole._id }, REFRESH_SECRET, { expiresIn: REFRESH_EXPIRES });
 
