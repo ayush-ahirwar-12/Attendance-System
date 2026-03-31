@@ -1,4 +1,4 @@
-import mongoClassRepository from "../repositories/implementations/mongoClassRepository";
+import mongoClassRepository from "../repositories/implementations/mongoClassRepository.js";
 
 class classService{
     constructor(){

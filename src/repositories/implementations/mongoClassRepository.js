@@ -1,6 +1,6 @@
-import { classModel } from "../../models/class.mode";
-import { AppError } from "../../utils/errors";
-import IClassRepository from "../contracts/IClassRepository";
+import { classModel } from "../../models/class.mode.js";
+import { AppError } from "../../utils/errors.js";
+import IClassRepository from "../contracts/IClassRepository.js";
 
 class mongoClassRepository extends IClassRepository{
     async createClass(data){
@@ -8,7 +8,7 @@ class mongoClassRepository extends IClassRepository{
         if(!classData){
             throw new AppError("Error while creating class",400);
         }
-        return classData
+        return classData;
     }
 }
 
