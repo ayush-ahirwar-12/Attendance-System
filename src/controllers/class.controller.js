@@ -1,4 +1,5 @@
 import classService from "../services/class.service.js"
+import { AppError } from "../utils/errors.js";
 
 class classController {
     constructor() {
@@ -15,5 +16,20 @@ class classController {
             next(error);
         }
     }
+    getClass = async (req,res,next)=>{
+        try {
+            const userId = req.userId;
+            const classes = await this.classService.getClass(userId);
+            res.status(200).json({
+                success:true,
+                data:classes
+            })
+        } catch (error) {
+            console.log(error);
+            
+            throw new AppError("error in fetching class",500,error)
+        }
+    }
+
 }
 export default new classController();
