@@ -42,7 +42,7 @@ class UserService {
       role: this._getSafeRole(user),
       isVerified: user.isVerified,
     };
-  } ''
+  }
   async createUser(data) {
     const email = data.email.toLowerCase().trim();
     const cacheKey = `user:email:${email}`;
@@ -226,11 +226,6 @@ class UserService {
     );
     return safeUser;
   }
-
-
-
-
-
 };
 
 export default UserService;
