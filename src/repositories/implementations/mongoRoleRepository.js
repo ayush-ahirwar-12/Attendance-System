@@ -9,9 +9,9 @@ class mongoRoleRepository extends IRoleRepository {
       return await role.save();
     } catch (error) {
       if (error.code === 11000) {
-        throw new AppError("Role name already exists", 409)
+        throw new AppError("Role name already exists", 409);
       }
-      throw new AppError("Failed to create role", 500)
+      throw new AppError("Failed to create role", 500);
     };
   };
 
@@ -25,4 +25,4 @@ class mongoRoleRepository extends IRoleRepository {
   }
 }
 
-export default mongoRoleRepository;
+export default mongoRoleRepository
