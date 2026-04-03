@@ -5,13 +5,13 @@ import IRoleRepository from "../contracts/IRoleRepository.js";
 class mongoRoleRepository extends IRoleRepository {
   async createRole(RoleData) {
     try {
-      const role = new roleModel(RoleData);
+      const role = new roleModel(RoleData)
       return await role.save();
     } catch (error) {
       if (error.code === 11000) {
         throw new AppError("Role name already exists", 409)
       }
-      throw new AppError("Failed to create role", 500);
+      throw new AppError("Failed to create role", 500)
     };
   };
 

@@ -23,4 +23,4 @@ class IRoleRepository{
     }
 }
 
-export default IRoleRepository;
+export default IRoleRepository
