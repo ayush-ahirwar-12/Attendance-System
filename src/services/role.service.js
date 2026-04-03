@@ -1,9 +1,9 @@
-import mongoRoleRepository from "../repositories/implementations/mongoRoleRepository.js";
-import { AppError } from "../utils/errors.js";
+import mongoRoleRepository from "../repositories/implementations/mongoRoleRepository.js"
+import { AppError } from "../utils/errors.js"
 
 class RoleService {
   constructor() {
-    this.roleRepository = new mongoRoleRepository()
+    this.roleRepository = new mongoRoleRepository();
   }
   async createRole(RoleData) {
     const existingRole = await this.roleRepository.findRoleByName(
@@ -16,4 +16,4 @@ class RoleService {
   }
 }
 
-export default RoleService;
+export default RoleService
