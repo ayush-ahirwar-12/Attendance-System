@@ -6,7 +6,7 @@ import config from "../config/environment.js";
 import { AppError } from "../utils/errors.js";
 import bcrypt from "bcrypt";
 
-const { JWT_SECRET, REFRESH_SECRET, REFRESH_EXPIRES } = config;
+const { JWT_SECRET, REFRESH_SECRET, REFRESH_EXPIRES } = config
 
 class UserService {
   constructor() {

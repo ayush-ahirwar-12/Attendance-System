@@ -7,7 +7,7 @@ const BREVO_API = BREVO_API_KEY;
 const BREVO_URL = "https://api.brevo.com/v3/smtp/email";
 
 export async function sendVerificationEmail(user) {
-  const verificationLink = `${FRONTEND_URL}/user-verification/${user.id}`;
+  const verificationLink = `${FRONTEND_URL}/user-verification/${user.id}`
 
   try {
     const payload = {
