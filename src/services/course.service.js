@@ -11,6 +11,13 @@ class courseService{
         }
         return await this.mongoCourseRepository.createCourse(data);
     }
+
+    async getCoursesByClassId (classId){
+        if(!classId){
+            throw new AppError("ClassId not provided",400);
+        }
+        return await this.mongoCourseRepository.getCoursesByClassId(classId);
+    }
 }
 
 export default courseService;

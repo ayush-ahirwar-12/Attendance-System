@@ -10,6 +10,14 @@ class mongoCourseRepository extends ICourseRepository{
         }
         return course;
     }
+
+    async getCoursesByClassId(classId){
+        let courses = await courseModel.find({ class: classId });
+        if(!courses){
+            throw new AppError("Error in fetching courses",400);
+        }
+        return courses;
+    }
 }
 
 export default mongoCourseRepository
