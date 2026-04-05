@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { classModel } from "../../models/class.mode.js";
+import { classModel } from "../../models/class.model.js";
 import { AppError } from "../../utils/errors.js";
 import IClassRepository from "../contracts/IClassRepository.js";
 
@@ -11,7 +11,7 @@ class mongoClassRepository extends IClassRepository {
         }
         return classData;
     }
-    async getClass(userId) {
+    async getAllClass(userId) {
         const userObjectId = new mongoose.Types.ObjectId(userId);
 
         const classes = await classModel.aggregate([
@@ -83,7 +83,10 @@ class mongoClassRepository extends IClassRepository {
 
         return classes;
     }
-
+    async getClass(classId){
+        const classData = await classModel.findById(classId);
+        return classData;
+    }
 }
 
 export default mongoClassRepository;

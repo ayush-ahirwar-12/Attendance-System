@@ -16,18 +16,32 @@ class classController {
             next(error);
         }
     }
-    getClass = async (req,res,next)=>{
+
+    getAllClass = async (req, res, next) => {
         try {
             const userId = req.userId;
-            const classes = await this.classService.getClass(userId);
+            const classes = await this.classService.getAllClass(userId);
             res.status(200).json({
-                success:true,
-                data:classes
+                success: true,
+                data: classes
             })
         } catch (error) {
             console.log(error);
-            
-            throw new AppError("error in fetching class",500,error)
+
+            throw new AppError("error in fetching class", 500, error);
+        }
+    }
+
+    getClass = async (req, res, next) => {
+        try {
+            const { classId } = req.params;
+            const data = await this.classService.getClass(classId);
+            res.status(200).json({
+                success: true,
+                data
+            })
+        } catch (error) {
+next(error)
         }
     }
 
