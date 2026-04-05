@@ -30,6 +30,19 @@ class courseController {
             next(error)
         }
     }
+
+    fetchCoursesByTeacherId = async (req, res, next) => {
+        try {
+            const teacherId = req.userId;
+            const courses = await this.courseService.getCoursesByTeacherId(teacherId);
+            res.status(200).json({
+                success: true,
+                data: courses
+            })
+        } catch (error) {
+            next(error)
+        }
+    }
 }
 
 export default new courseController();

@@ -18,6 +18,13 @@ class courseService{
         }
         return await this.mongoCourseRepository.getCoursesByClassId(classId);
     }
+
+    async getCoursesByTeacherId (teacherId){
+        if(!teacherId){
+            throw new AppError("TeacherId not provided",400);
+        }
+        return await this.mongoCourseRepository.getCoursesByTeacherId(teacherId);
+    }
 }
 
 export default courseService;

@@ -18,6 +18,14 @@ class mongoCourseRepository extends ICourseRepository{
         }
         return courses;
     }
+
+    async getCoursesByTeacherId(teacherId){
+        let courses = await courseModel.find({ teacher: teacherId });
+        if(!courses){
+            throw new AppError("Error in fetching courses",400);
+        }
+        return courses;
+    }
 }
 
 export default mongoCourseRepository
