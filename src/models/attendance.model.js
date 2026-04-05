@@ -11,6 +11,11 @@ const attendanceSchema = new mongoose.Schema({
     ref: "course",
   },
 
+  class: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Class",
+  },
+
   qrSession: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "qr",
@@ -45,7 +50,7 @@ const attendanceSchema = new mongoose.Schema({
 
 }, { timestamps: true });
 
-export const attendanceModel = mongoose.model("attendance",attendanceSchema.index(
+export const attendanceModel = mongoose.model("attendance", attendanceSchema.index(
   { student: 1, qrSession: 1 },
   { unique: true }
 ));

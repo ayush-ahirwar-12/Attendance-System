@@ -1,9 +1,13 @@
 import mongoose from "mongoose";
 
 const qrSessionSchema = new mongoose.Schema({
-  course: {
+  subject: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "course",
+  },
+   class: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Class",
   },
   teacher: {
     type: mongoose.Schema.Types.ObjectId,

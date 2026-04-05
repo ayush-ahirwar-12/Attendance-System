@@ -9,14 +9,14 @@ const courseSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    class:{
+        type:mongoose.Schema.Types.ObjectId,
+        required:true
+    },
     teacher:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"users"
     },
-    students:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"users"
-    }]
 },{timestamps:true});
 
 export const courseModel = mongoose.model("course",courseSchema);
