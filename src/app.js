@@ -6,6 +6,7 @@ import ClassRoute from "./routes/class.route.js"
 import RoleRoute from "./routes/role.route.js"
 import UserRoute from './routes/user.route.js'
 import qrRoute  from "./routes/qr.route.js"
+import courseRoute from "./routes/course.route.js"
 
 const app = express()
 app.use(express.json())
@@ -20,6 +21,7 @@ app.use("/api/class",ClassRoute);
 app.use("/api/role",RoleRoute);
 app.use("/api/auth",UserRoute);
 app.use("/api/qr",qrRoute);
+app.use("/api/course",courseRoute);
 
 
 
