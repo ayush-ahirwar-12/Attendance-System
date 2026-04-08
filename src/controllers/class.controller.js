@@ -17,10 +17,10 @@ class classController {
         }
     }
 
-    getAllClass = async (req, res, next) => {
+    getAllClassOfUser = async (req, res, next) => {
         try {
             const userId = req.userId;
-            const classes = await this.classService.getAllClass(userId);
+            const classes = await this.classService.getAllClassOfUser(userId);
             res.status(200).json({
                 success: true,
                 data: classes
@@ -41,7 +41,19 @@ class classController {
                 data
             })
         } catch (error) {
-next(error)
+            next(error)
+        }
+    }
+
+    getAllClass = async(req,res,next)=>{
+        try {
+            const data = await this.classService.getAllClass();
+            res.status(200).json({
+                success:true,
+                data
+            })
+        } catch (error) {
+            next(error)
         }
     }
 

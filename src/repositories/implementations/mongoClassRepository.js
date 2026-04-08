@@ -11,7 +11,7 @@ class mongoClassRepository extends IClassRepository {
         }
         return classData;
     }
-    async getAllClass(userId) {
+    async getAllClassOfUser(userId) {
         const userObjectId = new mongoose.Types.ObjectId(userId);
 
         const classes = await classModel.aggregate([
@@ -83,9 +83,29 @@ class mongoClassRepository extends IClassRepository {
 
         return classes;
     }
-    async getClass(classId){
+    async getClass(classId) {
         const classData = await classModel.findById(classId);
         return classData;
+    }
+    async getAllClass() {
+        return await classModel.aggregate([
+            {
+                $lookup: {
+                    from: "courses",              // collection name
+                    localField: "_id",            // class._id
+                    foreignField: "class",        // course.class
+                    as: "courses"                 // output array
+                }
+            },
+            {
+                $project: {
+                    name: 1,
+                    students: 1,
+                    location: 1,
+                    courses: 1
+                }
+            }
+        ]);
     }
 }
 

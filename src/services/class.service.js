@@ -8,11 +8,14 @@ class classService{
         let classData = this.mongoClassRepository.createClass(data);
         return classData;
     }
-    async getAllClass(userId){
-        return await this.mongoClassRepository.getAllClass(userId);
+    async getAllClassOfUser(userId){
+        return await this.mongoClassRepository.getAllClassOfUser(userId);
     }
     async getClass(classId){
         return await this.mongoClassRepository.getClass(classId);
+    }
+    async getAllClass(){
+        return await this.mongoClassRepository.getAllClass();
     }
 }
 
