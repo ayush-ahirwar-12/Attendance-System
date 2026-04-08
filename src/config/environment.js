@@ -12,5 +12,7 @@ export default {
     JWT_SECRET:process.env.JWT_SECRET,
     REFRESH_EXPIRES:process.env.REFRESH_EXPIRES,
     AWS_ACCESS_KEY:process.env.AWS_ACCESS_KEY,
-    AWS_SECRET_KEY:process.env.AWS_SECRET_KEY
+    AWS_SECRET_KEY:process.env.AWS_SECRET_KEY,
+    CLIENTID:process.env.CLIENT_ID,
+    CLIENTSECRET:process.env.CLIENT_SECRET
 }

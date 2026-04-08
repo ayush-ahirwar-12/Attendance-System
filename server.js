@@ -1,3 +1,4 @@
+
 import app from "./src/app.js";
 import config from "./src/config/environment.js"
 import { connecDb } from "./src/config/database.js";
