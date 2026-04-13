@@ -98,11 +98,34 @@ class mongoClassRepository extends IClassRepository {
                 }
             },
             {
+                $lookup: {
+                    from: "users",
+                    localField: "students",
+                    foreignField: "_id",
+                    as: "students"
+                }
+            },
+            {
                 $project: {
                     name: 1,
-                    students: 1,
-                    location: 1,
-                    courses: 1
+                    latitude: 1,
+                    longitude: 1,
+                    radius: 1,
+                    courses: 1,
+                    section:1,
+                    students: {
+                        $map: {
+                            input: "$students",
+                            as: "s",
+                            in: {
+                                _id: "$$s._id",
+                                name: {
+                                    $concat: ["$$s.firstName", " ", "$$s.lastName"]
+                                },
+                                email: "$$s.email"
+                            }
+                        }
+                    }
                 }
             }
         ]);

@@ -10,16 +10,10 @@ const classSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "users",
   }],
-
-  // 🔥 GPS
-  location: {
-    latitude: Number,
-    longitude: Number,
-    radius: {
-      type: Number,
-      default: 30,
-    }
-  }
+  latitude:Number,
+  longitude:Number,
+  radius:Number,
+  section:String
 
 }, { timestamps: true });
 
