@@ -17,4 +17,4 @@ const classSchema = new mongoose.Schema({
 
 }, { timestamps: true });
 
-export const classModel = mongoose.model("class",classSchema);
+export const classModel = mongoose.model("classes",classSchema);

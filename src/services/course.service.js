@@ -25,6 +25,13 @@ class courseService{
         }
         return await this.mongoCourseRepository.getCoursesByTeacherId(teacherId);
     }
+
+    async getAllCourses(){
+        const courses=await this.mongoCourseRepository.getAllCourses();
+        if(!courses){
+            throw new AppError("Error in fetching all courses",404);
+        }
+    }
 }
 
 export default courseService;

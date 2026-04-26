@@ -6,5 +6,6 @@ const router = express.Router();
 router.post("/create",authMiddleware,courseController.create);
 router.get("/allcourses/:classId",authMiddleware,courseController.fetchCoursesByClassId);
 router.get("/teacher",authMiddleware,courseController.fetchCoursesByTeacherId);
+router.get("/allcourses",authMiddleware,courseController.getAllCourses);
 
 export default router;
