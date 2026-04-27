@@ -31,6 +31,7 @@ class courseService{
         if(!courses){
             throw new AppError("Error in fetching all courses",404);
         }
+        return courses;
     }
 }
 

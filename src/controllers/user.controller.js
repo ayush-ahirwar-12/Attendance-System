@@ -5,6 +5,8 @@ class UserController {
         this.userService = new UserService();
 
         this.updateUserRole = this.updateUserRole.bind(this);
+
+        this.getAllTeachers = this.getAllTeachers.bind(this);
     }
     async updateUserRole(req, res, next) {
         try {
@@ -58,6 +60,21 @@ class UserController {
             data:user,
             message:"profile updated successfully"
         })
+    }
+
+    async getAllTeachers(req, res, next) {
+        try {
+            const teachers = await this.userService.getAllTeachers()
+
+            return res.status(200).json({
+                success: true,
+                message: "Teachers retrieved successfully",
+                data: teachers,
+                count: teachers.length,
+            });
+        } catch (error) {
+            next(error);
+        }
     }
 }
 

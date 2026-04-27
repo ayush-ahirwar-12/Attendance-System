@@ -226,6 +226,38 @@ class UserService {
     );
     return safeUser;
   }
+
+  async getAllTeachers() {
+    try {
+      const teachers = await this.UserRepository.getAllTeachers();
+      
+      if (!teachers || teachers.length === 0) {
+        return [];
+      }
+
+      // Transform teachers to safe payload format
+      const safeTeachers = teachers.map(teacher => ({
+        _id: teacher._id,
+        email: teacher.email,
+        firstName: teacher.firstName,
+        lastName: teacher.lastName,
+        phoneNumber: teacher.phoneNumber || null,
+        isVerified: teacher.isVerified,
+        role: teacher.role ? {
+          _id: teacher.role._id,
+          name: teacher.role.name,
+          description: teacher.role.description,
+        } : null,
+        createdAt: teacher.createdAt,
+        updatedAt: teacher.updatedAt,
+      }));
+
+      return safeTeachers;
+    } catch (error) {
+      console.error("Error in getAllTeachers service:", error);
+      throw new AppError("Failed to retrieve teachers", 500, error);
+    }
+  }
 };
 
 export default UserService

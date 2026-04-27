@@ -1,4 +1,5 @@
 import courseService from '../services/course.service.js'
+import { AppError } from '../utils/errors.js'
 
 class courseController {
   constructor () {

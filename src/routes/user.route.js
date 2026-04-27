@@ -5,7 +5,8 @@ const router = express.Router();
 
 router.put("/:id/role",authMiddleware,userController.updateUserRole);
 
-router.patch("/updateuser",authMiddleware,userController.updateUser
-)
+router.patch("/updateuser",authMiddleware,userController.updateUser);
+
+router.get("/allteachers",authMiddleware,userController.getAllTeachers);
 
 export default router;

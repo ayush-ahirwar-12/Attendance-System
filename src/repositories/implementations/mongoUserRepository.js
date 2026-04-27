@@ -89,6 +89,53 @@ class MongoUserRepository extends IUserRepository {
       throw new AppError("Error in updating User", 501, error);
     };
   };
+
+  async getAllTeachers() {
+    try {
+      const teachers = await userModel.aggregate([
+        {
+          $lookup: {
+            from: "roles",
+            localField: "roleId",
+            foreignField: "_id",
+            as: "role",
+          },
+        },
+        {
+          $unwind: {
+            path: "$role",
+            preserveNullAndEmptyArrays: true,
+          },
+        },
+        {
+          $match: {
+            "role.name": "teacher",
+          },
+        },
+        {
+          $project: {
+            _id: 1,
+            email: 1,
+            firstName: 1,
+            lastName: 1,
+            phoneNumber: 1,
+            isVerified: 1,
+            role: {
+              _id: "$role._id",
+              name: "$role.name",
+              description: "$role.description",
+            },
+            createdAt: 1,
+            updatedAt: 1,
+          },
+        },
+      ]);
+      return teachers;
+    } catch (error) {
+      console.error("Error fetching teachers:", error);
+      throw new AppError("Failed to fetch teachers", 500, error);
+    }
+  };
 };
 
 export default MongoUserRepository;

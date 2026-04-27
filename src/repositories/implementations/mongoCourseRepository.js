@@ -47,35 +47,38 @@ class mongoCourseRepository extends ICourseRepository {
         }
       },
 
-      {
-        $project: {
-          name: 1,
-          code: 1,
-          class: {
-            $map:{
-                input:"$class",
-                as:"c",
-                in:{
-                    _id:"$$c._id",
-                    name:"$$c.name"
-                }
-            }
-          },
-          teacher: {
-            $map:{
-                input:"$teacher",
-                as:"t",
-                in:{
-                    _id: "$$t._id",
-                                name: {
-                                    $concat: ["$$t.firstName", " ", "$$t.lastName"]
-                                },
-                                email: "$$t.email"
-                }
+{
+  $project: {
+    name: 1,
+    code: 1,
+    class: {
+      $arrayElemAt: [
+        {
+          $map: {
+            input: "$class",
+            as: "c",
+            in: "$$c.name"
+          }
+        },
+        0
+      ]
+    },
+    teacher: {
+      $arrayElemAt: [
+        {
+          $map: {
+            input: "$teacher",
+            as: "t",
+            in: {
+              $concat: ["$$t.firstName", " ", "$$t.lastName"]
             }
           }
-        }
-      }
+        },
+        0
+      ]
+    }
+  }
+}
     ])
   }
 }
