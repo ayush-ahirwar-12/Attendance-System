@@ -1,52 +1,51 @@
-import userModel from "../../models/user.model.js";
-import IUserRepository from "../contracts/IUserRepository.js";
-import { AppError } from "../../utils/errors.js";
-import mongoose from "mongoose";
+import userModel from '../../models/user.model.js'
+import IUserRepository from '../contracts/IUserRepository.js'
+import { AppError } from '../../utils/errors.js'
+import mongoose from 'mongoose'
 
 class MongoUserRepository extends IUserRepository {
-  async createUser(data) {
+  async createUser (data) {
     try {
-      const user = new userModel(data);
-      const savedUser = await user.save();
-      return savedUser;
+      const user = new userModel(data)
+      const savedUser = await user.save()
+      return savedUser
     } catch (error) {
-      console.error("Error creating user:", error);
-    };
-  };
-  async findUserbyEmail(email) {
+      console.error('Error creating user:', error)
+    }
+  }
+  async findUserbyEmail (email) {
     try {
-      const user = await userModel.findOne({ email });
-      return user;
+      const user = await userModel.findOne({ email })
+      return user
     } catch (error) {
-      console.log("Error in finding user", error);
-    };
-  };
+      console.log('Error in finding user', error)
+    }
+  }
 
-
-  async findUserbyId(Id) {
+  async findUserbyId (Id) {
     const isValid = mongoose.Types.ObjectId.isValid(Id)
     if (!isValid) {
-      console.log("ERROR: Invalid ObjectId format:", Id);
-      return null;
+      console.log('ERROR: Invalid ObjectId format:', Id)
+      return null
     }
-    const objectId = new mongoose.Types.ObjectId(Id);
+    const objectId = new mongoose.Types.ObjectId(Id)
 
     try {
       const [user] = await userModel.aggregate([
         { $match: { _id: objectId } },
         {
           $lookup: {
-            from: "roles",
-            localField: "roleId",
-            foreignField: "_id",
-            as: "role",
-          },
+            from: 'roles',
+            localField: 'roleId',
+            foreignField: '_id',
+            as: 'role'
+          }
         },
         {
           $unwind: {
-            path: "$role",
-            preserveNullAndEmptyArrays: true,
-          },
+            path: '$role',
+            preserveNullAndEmptyArrays: true
+          }
         },
         {
           $project: {
@@ -60,82 +59,76 @@ class MongoUserRepository extends IUserRepository {
             isVerified: 1,
             role: {
               $cond: [
-                { $ifNull: ["$role", false] },
+                { $ifNull: ['$role', false] },
                 {
-                  _id: "$role._id",
-                  name: "$role.name",
-                  description: "$role.description", // kept full description like in HEAD
+                  _id: '$role._id',
+                  name: '$role.name',
+                  description: '$role.description' // kept full description like in HEAD
                 },
-                null,
-              ],
-            },
-          },
+                null
+              ]
+            }
+          }
         },
-        { $limit: 1 },
+        { $limit: 1 }
       ])
-      return user || null;
-
+      return user || null
     } catch (error) {
-      console.error("Error finding user by ID:", error);
-      throw new AppError("Failed to find user by ID", 500, error);
+      console.error('Error finding user by ID:', error)
+      throw new AppError('Failed to find user by ID', 500, error)
     }
-  };
+  }
 
-
-  async update(userId, newData) {
+  async update (userId, newData) {
     try {
-      return await userModel.findByIdAndUpdate(userId, newData, { new: true });
+      return await userModel.findByIdAndUpdate(userId, newData, { new: true })
     } catch (error) {
-      throw new AppError("Error in updating User", 501, error);
-    };
-  };
+      throw new AppError('Error in updating User', 501, error)
+    }
+  }
 
-  async getAllTeachers() {
+  async getAllTeachers () {
     try {
       const teachers = await userModel.aggregate([
         {
           $lookup: {
-            from: "roles",
-            localField: "roleId",
-            foreignField: "_id",
-            as: "role",
-          },
+            from: 'roles',
+            localField: 'roleId',
+            foreignField: '_id',
+            as: 'role'
+          }
         },
         {
           $unwind: {
-            path: "$role",
-            preserveNullAndEmptyArrays: true,
-          },
+            path: '$role',
+            preserveNullAndEmptyArrays: true
+          }
         },
         {
           $match: {
-            "role.name": "teacher",
-          },
+            'role.name': 'teacher'
+          }
+        },
+        {
+          $addFields:{
+            name:{
+              $concat:['$firstName', ' ', '$lastName']
+            }
+          }
         },
         {
           $project: {
             _id: 1,
-            email: 1,
-            firstName: 1,
-            lastName: 1,
-            phoneNumber: 1,
-            isVerified: 1,
-            role: {
-              _id: "$role._id",
-              name: "$role.name",
-              description: "$role.description",
-            },
-            createdAt: 1,
-            updatedAt: 1,
-          },
-        },
-      ]);
-      return teachers;
+            name: 1,
+          }
+        }
+      ])
+      return teachers
     } catch (error) {
-      console.error("Error fetching teachers:", error);
-      throw new AppError("Failed to fetch teachers", 500, error);
+      console.error('Error fetching teachers:', error)
+      throw new AppError('Failed to fetch teachers', 500, error)
     }
-  };
-};
+  }
+}
 
-export default MongoUserRepository;
+export default MongoUserRepository

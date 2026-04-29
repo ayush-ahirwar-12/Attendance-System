@@ -238,18 +238,7 @@ class UserService {
       // Transform teachers to safe payload format
       const safeTeachers = teachers.map(teacher => ({
         _id: teacher._id,
-        email: teacher.email,
-        firstName: teacher.firstName,
-        lastName: teacher.lastName,
-        phoneNumber: teacher.phoneNumber || null,
-        isVerified: teacher.isVerified,
-        role: teacher.role ? {
-          _id: teacher.role._id,
-          name: teacher.role.name,
-          description: teacher.role.description,
-        } : null,
-        createdAt: teacher.createdAt,
-        updatedAt: teacher.updatedAt,
+        name:teacher.name,
       }));
 
       return safeTeachers;
