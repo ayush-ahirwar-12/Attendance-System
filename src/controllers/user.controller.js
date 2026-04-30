@@ -7,6 +7,10 @@ class UserController {
         this.updateUserRole = this.updateUserRole.bind(this);
 
         this.getAllTeachers = this.getAllTeachers.bind(this);
+
+        this.getAllUsers = this.getAllUsers.bind(this);
+
+        this.getAllStudents = this.getAllStudents.bind(this);
     }
     async updateUserRole(req, res, next) {
         try {
@@ -71,6 +75,37 @@ class UserController {
                 message: "Teachers retrieved successfully",
                 data: teachers,
                 count: teachers.length,
+            });
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async getAllUsers(req,res,next){
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const search = req.query.search || "";
+
+        const result = await this.userService.getAllUsers(page,limit,search);
+
+        res.status(200).json({
+            success:true,
+            data:result,
+            pagination:result.pagination,
+            message:"User fetched successfully"
+        })
+        
+    }
+
+        async getAllStudents(req, res, next) {
+        try {
+            const students = await this.userService.getAllStudents()
+
+            return res.status(200).json({
+                success: true,
+                message: "Students retrieved successfully",
+                data: students,
+                count: students.length,
             });
         } catch (error) {
             next(error);

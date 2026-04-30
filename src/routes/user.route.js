@@ -9,4 +9,10 @@ router.patch("/updateuser",authMiddleware,userController.updateUser);
 
 router.get("/allteachers",authMiddleware,userController.getAllTeachers);
 
+router.get("/allusers",authMiddleware,userController.getAllUsers);
+
+router.get("/allstudents",authMiddleware,userController.getAllStudents)
+
+
+
 export default router;

@@ -2,6 +2,8 @@ import userModel from '../../models/user.model.js'
 import IUserRepository from '../contracts/IUserRepository.js'
 import { AppError } from '../../utils/errors.js'
 import mongoose from 'mongoose'
+import { paginateAggregation } from '../../utils/pagination.js'
+import UserModel from '../../models/user.model.js'
 
 class MongoUserRepository extends IUserRepository {
   async createUser (data) {
@@ -127,6 +129,117 @@ class MongoUserRepository extends IUserRepository {
     } catch (error) {
       console.error('Error fetching teachers:', error)
       throw new AppError('Failed to fetch teachers', 500, error)
+    }
+  }
+
+  async getAllUsers(page = 1, limit = 10, search = ""){
+    try {
+      const pipeline = [
+        // 🔍 SEARCH FILTER (must be first)
+        ...(search
+          ? [
+            {
+              $match: {
+                $or: [
+                  { firstName: { $regex: search, $options: "i" } },
+                  { lastName: { $regex: search, $options: "i" } },
+                  {
+                    $expr: {
+                      $regexMatch: {
+                        input: { $concat: ["$firstName", " ", "$lastName"] },
+                        regex: search,
+                        options: "i",
+                      },
+                    },
+                  },
+                ],
+              },
+            },
+          ]
+          : []),
+        // ROLE LOOKUP
+        {
+          $lookup: {
+            from: "roles",
+            localField: "roleId",
+            foreignField: "_id",
+            as: "role",
+          },
+        },
+        {
+          $unwind: {
+            path: "$role",
+            preserveNullAndEmptyArrays: true,
+          },
+        },
+        // PROJECT FIELDS
+        {
+          $project: {
+            _id: 1,
+            email: 1,
+            firstName: 1,
+            lastName: 1,
+            phoneNumber: 1,
+            isVerified: 1,
+            role: {
+              _id: "$role._id",
+              name: "$role.name",
+              description: "$role.description",
+            },
+          },
+        },
+        // 🔃 SORT
+        { $sort: { createdAt: -1 } },
+      ];
+
+      return await paginateAggregation(UserModel, pipeline, { page, limit });
+    } catch (error) {
+      console.log(error);
+      
+      throw new AppError("Failed to fetch all users with roles", 500, error);
+    }
+  }
+
+    async getAllStudents () {
+    try {
+      const students = await userModel.aggregate([
+        {
+          $lookup: {
+            from: 'roles',
+            localField: 'roleId',
+            foreignField: '_id',
+            as: 'role'
+          }
+        },
+        {
+          $unwind: {
+            path: '$role',
+            preserveNullAndEmptyArrays: true
+          }
+        },
+        {
+          $match: {
+            'role.name': 'student'
+          }
+        },
+        {
+          $addFields:{
+            name:{
+              $concat:['$firstName', ' ', '$lastName']
+            }
+          }
+        },
+        {
+          $project: {
+            _id: 1,
+            name: 1,
+          }
+        }
+      ])
+      return students
+    } catch (error) {
+      console.error('Error fetching students:', error)
+      throw new AppError('Failed to fetch students', 500, error)
     }
   }
 }

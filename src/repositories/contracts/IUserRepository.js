@@ -14,6 +14,12 @@ class IUserRepository {
   async getAllTeachers() {
     throw new Error("method not implemented");
   };
+  async getAllUsers(){
+    throw new Error("method not implemented");
+  }
+  async getAllStudents(){
+    throw new Error("method not implemented");
+  }
 };
 
 export default IUserRepository;
