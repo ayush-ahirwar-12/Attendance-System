@@ -57,5 +57,20 @@ class classController {
         }
     }
 
+    updateClass = async (req, res, next) => {
+        try {
+            const { id } = req.params;
+            const updateData = req.body;
+            const updatedClass = await this.classService.updateClass(classId, updateData);
+            return res.status(200).json({
+                success: true,
+                message: "Class updated successfully",
+                data: updatedClass
+            });
+        } catch (error) {
+            next(error);
+        }
+    }
+
 }
 export default new classController();

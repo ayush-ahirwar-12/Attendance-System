@@ -272,8 +272,8 @@ class UserService {
 
       return safeStudents;
     } catch (error) {
-      console.error('Error in getAllStudents service:', error)
-      throw new AppError('Failed to retrieve students', 500, error)
+      console.error('Error in getAllStudents service:', error);
+      throw new AppError('Failed to retrieve students', 500, error);
     }
   }
 }

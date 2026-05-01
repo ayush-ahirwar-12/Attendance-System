@@ -87,6 +87,17 @@ class mongoClassRepository extends IClassRepository {
         const classData = await classModel.findById(classId);
         return classData;
     }
+    async updateClass(classId, data) {
+        const updatedClass = await classModel.findByIdAndUpdate(
+            classId,
+            data,
+            { new: true, runValidators: true }
+        );
+        if (!updatedClass) {
+            throw new AppError("Class not found", 404);
+        }
+        return updatedClass;
+    }
     async getAllClass() {
         return await classModel.aggregate([
             {

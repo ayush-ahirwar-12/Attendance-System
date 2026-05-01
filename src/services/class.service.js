@@ -17,6 +17,9 @@ class classService{
     async getAllClass(){
         return await this.mongoClassRepository.getAllClass();
     }
+    async updateClass(classId, data){
+        return await this.mongoClassRepository.updateClass(classId, data);
+    }
 }
 
 export default classService;
