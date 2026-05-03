@@ -61,7 +61,7 @@ class classController {
         try {
             const { id } = req.params;
             const updateData = req.body;
-            const updatedClass = await this.classService.updateClass(classId, updateData);
+            const updatedClass = await this.classService.updateClass(id, updateData);
             return res.status(200).json({
                 success: true,
                 message: "Class updated successfully",

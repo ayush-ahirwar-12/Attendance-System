@@ -14,6 +14,9 @@ class IClassRepository{
     async updateClass(){
         throw new Error("Method not implemented");
     }
+    async deleteClass(){
+        throw new Error("method not implemented");
+    }
 }
 
 export default IClassRepository;
