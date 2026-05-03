@@ -81,6 +81,20 @@ class mongoCourseRepository extends ICourseRepository {
 }
     ])
   }
+  async updateCourse(courseId,data){
+    const updatedCourse = await courseModel.findByIdAndUpdate(courseId,data,{new:true});
+    if(!updatedCourse){
+        throw new AppError("Course not found",404);
+    }
+    return updatedCourse;
+  }
+  async deleteCourse(courseId){
+    const deletedCourse = await courseModel.findByIdAndDelete(courseId);
+    if(!deletedCourse){
+        throw new AppError("Course not found",404);
+    }
+    return deletedCourse;
+  }
 }
 
 export default mongoCourseRepository
