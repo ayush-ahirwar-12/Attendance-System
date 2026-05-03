@@ -55,6 +55,32 @@ class courseController {
       next(error)
     }
   }
+
+  updateCourse = async(req,res,next)=>{
+    try {
+      const {id} = req.params;
+      const data = req.body;
+      const updatedCourse = await this.courseService.updateCourse(id,data);
+      res.status(200).json({
+        success:true,
+        data:updatedCourse
+      })
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  deleteCourse = async(req,res,next)=>{
+    try {
+      const {id} = req.params;
+      await this.courseService.deleteCourse(id);
+      res.status(200).json({
+        success:true,
+        message:"Course deleted successfully"
+      })
+    } catch (error) {
+      next(error);
+    }
 }
 
 export default new courseController()
