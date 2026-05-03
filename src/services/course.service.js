@@ -33,6 +33,20 @@ class courseService{
         }
         return courses;
     }
+
+    async updateCourse(courseid,data){
+        if(!courseid){
+            throw new AppError("Course id is required",400);
+        }
+        return await this.mongoCourseRepository.updateCourse(courseid,data);
+    }
+    
+    async deleteCourse(courseid){
+        if(!courseid){
+            throw new AppError("Course id is required",400);
+        }
+        return await this.mongoCourseRepository.deleteCourse(courseid);
+    }
 }
 
 export default courseService;
