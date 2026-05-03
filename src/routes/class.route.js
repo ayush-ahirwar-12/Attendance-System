@@ -8,6 +8,7 @@ router.get("/getallclassofuser",authMiddleware,classController.getAllClassOfUser
 router.get("/getclass/:classId",authMiddleware,classController.getClass);
 router.get("/getallclass",authMiddleware,classController.getAllClass);
 router.patch("/update/:id",authMiddleware,classController.updateClass);
+router.delete("/delete/:id",authMiddleware,classController.deleteClass);
 
 
 export default router;
