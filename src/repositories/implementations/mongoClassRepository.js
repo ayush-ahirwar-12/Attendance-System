@@ -141,6 +141,12 @@ class mongoClassRepository extends IClassRepository {
             }
         ]);
     }
+    async deleteClass(classId){
+        const deletedClass = await classModel.findByIdAndDelete(classId);
+        if(!deletedClass){
+            throw new AppError("Class not found",404);
+        }
+    }
 }
 
 export default mongoClassRepository;
