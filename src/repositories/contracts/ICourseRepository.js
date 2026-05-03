@@ -5,6 +5,12 @@ class ICourseRepository {
     async getAllCourses(){
         throw new Error("Method not implemented");
     }
+    async updateCourse(courseId, data){
+        throw new Error("Method not implemented");
+    }
+    async deleteCourse(courseId){
+        throw new Error("Method not implemented");
+    }
 
 }
 export default ICourseRepository;
