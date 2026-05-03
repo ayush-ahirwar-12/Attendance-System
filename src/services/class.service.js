@@ -20,6 +20,12 @@ class classService{
     async updateClass(classId, data){
         return await this.mongoClassRepository.updateClass(classId, data);
     }
+    async deleteClass(classId){
+        if(!classId){
+            throw new AppError("Class id is required",400);
+        }
+        return await this.mongoClassRepository.deleteClass(classId);
+    }
 }
 
 export default classService;
