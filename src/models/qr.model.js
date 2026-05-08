@@ -1,31 +1,51 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
 
-const qrSessionSchema = new mongoose.Schema({
-  subject: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "course",
-  },
-   class: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "classes",
-  },
-  teacher: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "users",
-  },
-  qrToken: {
-    type: String,
-    required: true,
-  },
-  expiresAt: {
-    type: Date,
-    required: true,
-  },
-  isActive: {
-    type: Boolean,
-    default: true,
-  }
-}, { timestamps: true });
+const attendanceSessionSchema = new mongoose.Schema(
+  {
+    lecture: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'lectures',
+      required: true
+    },
+    teacher: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'users',
+      required: true
+    },
+    method: {
+      type: String,
+      enum: ['face', 'qr', 'manual'],
+      required: true
+    },
+    status: {
+      type: String,
+      enum: ['open', 'closed'],
+      default: 'open'
+    },
 
-export const qrSessionModel = mongoose.model("qr",qrSessionSchema);
+    // QR ke liye
+    qrToken: {
+      type: String,
+      default: null // QR method me generate hoga
+    },
+    qrExpiresAt: {
+      type: Date,
+      default: null
+    },
 
+    startedAt: {
+      type: Date,
+      default: Date.now
+    },
+    closedAt: {
+      type: Date,
+      default: null
+    }
+  },
+  { timestamps: true }
+)
+
+export const attendanceSessionModel = mongoose.model(
+  'attendanceSessions',
+  attendanceSessionSchema
+)
