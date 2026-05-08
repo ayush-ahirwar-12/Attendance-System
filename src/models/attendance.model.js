@@ -13,7 +13,7 @@ const attendanceSchema = new mongoose.Schema({
 
   class: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Class",
+    ref: "classes",
   },
 
   qrSession: {
@@ -42,9 +42,13 @@ const attendanceSchema = new mongoose.Schema({
     default: false,
   },
 
+  arrivalTime: {
+    type: String,
+  },
+
   status: {
     type: String,
-    enum: ["present", "absent"],
+    enum: ["present", "absent", "late"],
     default: "absent",
   }
 

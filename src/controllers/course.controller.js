@@ -82,5 +82,6 @@ class courseController {
       next(error);
     }
 }
+}
 
 export default new courseController()

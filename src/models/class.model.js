@@ -5,11 +5,6 @@ const classSchema = new mongoose.Schema({
     type:String,
     unique:true
   },
-
-  students: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "users",
-  }],
   latitude:Number,
   longitude:Number,
   radius:Number,

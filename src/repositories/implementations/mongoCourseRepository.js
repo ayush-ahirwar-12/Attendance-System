@@ -51,6 +51,7 @@ class mongoCourseRepository extends ICourseRepository {
   $project: {
     name: 1,
     code: 1,
+    type:1,
     class: {
       $arrayElemAt: [
         {

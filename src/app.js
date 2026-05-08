@@ -11,6 +11,7 @@ import morgan from "morgan";
 import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20"
 import config from "./config/environment.js"
+import enrollmentRoute from "./routes/enrollment.route.js";
 const {CLIENTID,CLIENTSECRET}= config;
 
 
@@ -39,6 +40,7 @@ app.use("/api/role", RoleRoute);
 app.use("/api/auth", UserRoute);
 app.use("/api/qr", qrRoute);
 app.use("/api/course", courseRoute);
+app.use("/api/enrollment", enrollmentRoute);
 
 app.get("/",(req,res)=>{
     res.send("Hello world")
