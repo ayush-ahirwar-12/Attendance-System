@@ -23,6 +23,14 @@ const courseSchema = new mongoose.Schema(
     teacher: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'users'
+    },
+    semester: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'semesters'
+    },
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'users'
     }
   },
   { timestamps: true }
