@@ -1,60 +1,33 @@
-import mongoose from "mongoose";
-
-const attendanceSchema = new mongoose.Schema({
-  student: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "users",
-  },
-
-  course: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "course",
-  },
-
-  class: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "classes",
-  },
-
-  qrSession: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "qr",
-  },
-
-  // 🔥 Face verification result
-  faceMatched: {
-    type: Boolean,
-    default: false,
-  },
-
-  faceDistance: {
-    type: Number, // store distance for debugging
-  },
-
-  // 🔥 GPS verification
-  location: {
-    latitude: Number,
-    longitude: Number,
-  },
-
-  isWithinRadius: {
-    type: Boolean,
-    default: false,
-  },
-
-  arrivalTime: {
-    type: String,
-  },
-
+const attendanceRecordSchema = new mongoose.Schema({
+  session: { type: ObjectId, ref: "attendanceSessions", required: true },
+  lecture: { type: ObjectId, ref: "lectures", required: true },
+  student: { type: ObjectId, ref: "users", required: true },
   status: {
     type: String,
     enum: ["present", "absent", "late"],
-    default: "absent",
-  }
+    default: "absent"
+  },
+  markedBy: {
+    type: String,
+    enum: ["face", "qr", "manual"]
+  },
+  markedAt: { type: Date, default: Date.now },
 
+  // LOCATION DATA — add karo
+  location: {
+    latitude: Number,
+    longitude: Number,
+    distance: Number,       // class se kitna door tha (meters me)
+    isWithinRadius: Boolean // radius ke andar tha ya nahi
+  },
+
+  // FACE DATA — add karo
+  faceMatch: {
+    isMatched: Boolean,
+    confidence: Number      // 0 to 1 (kitna confident hai match)
+  },
+
+  // Override
+  overriddenBy: { type: ObjectId, ref: "users", default: null },
+  overrideReason: { type: String, default: null }
 }, { timestamps: true });
-
-export const attendanceModel = mongoose.model("attendance", attendanceSchema.index(
-  { student: 1, qrSession: 1 },
-  { unique: true }
-));
