@@ -2,10 +2,6 @@ import { semesterModel } from "../../models/semester.model";
 
 class mongoSemesterRepository {
 
-    constructor(){
-        this.semesterModel =new semesterModel();
-    }
-
     async createSemester(semesterData) {
         const semester = new this.semesterModel(semesterData);
         return await semester.save();
