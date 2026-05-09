@@ -3,7 +3,7 @@ import { semesterModel } from "../../models/semester.model";
 class mongoSemesterRepository {
 
     constructor(){
-        this.semesterModel = semesterModel;
+        this.semesterModel =new semesterModel();
     }
 
     async createSemester(semesterData) {
@@ -23,3 +23,6 @@ class mongoSemesterRepository {
         return await this.semesterModel.findByIdAndUpdate(semesterId, { status }, { new: true });
     }
 }
+
+
+export default mongoSemesterRepository;
