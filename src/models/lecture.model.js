@@ -16,33 +16,47 @@ const lectureSchema = new mongoose.Schema({
     ref: "users",
     required: true
   },
+  semester: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "semesters",
+    required: true
+  },
+  timetable: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "timetables"
+  },
   date: {
     type: Date,
     required: true
   },
-  startTime: {
-    type: String,    // "09:00"
-    required: true
-  },
-  endTime: {
-    type: String,    // "10:00"
-    required: true
-  },
-  topic: {
-    type: String     // teacher baad me fill karega
+  startTime: { type: String, required: true },
+  endTime: { type: String, required: true },
+  topic: { type: String, default: null },
+  room: String,
+  type: {
+    type: String,
+    enum: ["regular", "extra"],
+    default: "regular"
   },
   status: {
     type: String,
     enum: ["scheduled", "ongoing", "completed", "cancelled"],
     default: "scheduled"
   },
-  cancelReason: {
-    type: String,
+  cancelReason: { type: String, default: null },
+  cancelledBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "users",
+    default: null
+  },
+  approvedBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "users",
     default: null
   },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "users"     // manager
+    ref: "users"
   }
 }, { timestamps: true });
 
