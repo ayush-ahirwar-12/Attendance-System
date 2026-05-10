@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken'
 import config from '../config/environment.js'
 import { AppError } from '../utils/errors.js'
 import bcrypt from 'bcrypt'
+import {createClient} from "@hey-api/openapi-ts"
 
 const { JWT_SECRET, REFRESH_SECRET, REFRESH_EXPIRES } = config
 
@@ -277,5 +278,7 @@ class UserService {
     }
   }
 }
+
+
 
 export default UserService
