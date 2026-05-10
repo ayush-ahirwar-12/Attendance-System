@@ -13,3 +13,5 @@ class holidayService{
         return await this.holidayRepository.createHoliday(holidayData);
     }
 }
+
+export default holidayService;
