@@ -1,6 +1,7 @@
 import { semesterModel } from "../../models/semester.model";
+import ITimeTableRepository from "../contracts/ITimeTableRepository";
 
-class mongoSemesterRepository {
+class mongoSemesterRepository extends ITimeTableRepository {
 
     async createSemester(semesterData) {
         const semester = new this.semesterModel(semesterData);

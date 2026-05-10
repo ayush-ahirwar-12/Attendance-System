@@ -3,3 +3,5 @@ class IHolidayRepository {
     throw new Error("Method not implemented.");
   }
 }
+
+export default IHolidayRepository;
