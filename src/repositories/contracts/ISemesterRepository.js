@@ -1,20 +1,20 @@
-class iSemesterRepository {
+class ISemesterRepository {
 
-  async createSemester(semesterData) {
-    throw new Error("Method not implemented.");
+  async create(data) {
+    throw new Error("Method not implemented");
   }
 
-  async findById(semesterId) {
-    throw new Error("Method not implemented.");
+  async findById(id) {
+    throw new Error("Method not implemented");
   }
 
   async findAll() {
-    throw new Error("Method not implemented.");
+    throw new Error("Method not implemented");
   }
 
-  async updateStatus(semesterId, status) {
-    throw new Error("Method not implemented.");
+  async updateStatus(id, status) {
+    throw new Error("Method not implemented");
   }
-
-
 }
+
+export default ISemesterRepository;

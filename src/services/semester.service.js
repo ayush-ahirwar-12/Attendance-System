@@ -1,4 +1,4 @@
-import mongoSemesterRepository from "../repositories/implementations/mongoSemesterRepository";
+import mongoSemesterRepository from "../repositories/implementations/mongoSemesterRepository.js";
 
 class semesterService {
   constructor() {
@@ -6,7 +6,11 @@ class semesterService {
   }
 
   async createSemester(semesterData) {
-    return await this.mongoSemesterRepository.createSemester(semesterData);
+    return await this.mongoSemesterRepository.create(semesterData);
+  }
+
+  async create(data) {
+    return await this.mongoSemesterRepository.create(data);
   }
 
   async findById(semesterId) {
