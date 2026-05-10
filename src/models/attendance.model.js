@@ -2,9 +2,9 @@ import mongoose from "mongoose";
 
 const attendanceRecordSchema = new mongoose.Schema(
   {
-    session: { type: ObjectId, ref: 'attendanceSessions', required: true },
-    lecture: { type: ObjectId, ref: 'lectures', required: true },
-    student: { type: ObjectId, ref: 'users', required: true },
+    session: { type: mongoose.Schema.Types.ObjectId, ref: 'attendanceSessions', required: true },
+    lecture: { type: mongoose.Schema.Types.ObjectId, ref: 'lectures', required: true },
+    student: { type: mongoose.Schema.Types.ObjectId, ref: 'users', required: true },
     status: {
       type: String,
       enum: ['present', 'absent', 'late'],
@@ -31,7 +31,7 @@ const attendanceRecordSchema = new mongoose.Schema(
     },
 
     // Override
-    overriddenBy: { type: ObjectId, ref: 'users', default: null },
+    overriddenBy: { type: mongoose.Schema.Types.ObjectId, ref: 'users', default: null },
     overrideReason: { type: String, default: null }
   },
   { timestamps: true }

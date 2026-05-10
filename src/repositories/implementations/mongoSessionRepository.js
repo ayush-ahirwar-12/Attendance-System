@@ -2,15 +2,15 @@ import { qrSessionModel } from "../../models/qr.model.js";
 import { AppError } from "../../utils/errors.js";
 import IQrRepository from "../contracts/IQrRepository.js";
 
-class MongoQrRepository extends IQrRepository {
-    async generateQr(courseId, expiresAt, teacherId, qrToken) {
+class MongoSessionRepository extends ISessionRepository {
+    async generateSession(courseId, expiresAt, teacherId, sessionToken) {
         await qrSessionModel.updateMany({ course: courseId, isActive: true },
             { isActive: false })
 
         const qrSession = await qrSessionModel.create({
             course: courseId,
             teacher: teacherId,
-            qrToken,
+            sessionToken,
             expiresAt
         })
         console.log("qrSession----->",qrSession);
@@ -22,4 +22,4 @@ class MongoQrRepository extends IQrRepository {
     }
 }
 
-export default MongoQrRepository;
+export default MongoSessionRepository;
