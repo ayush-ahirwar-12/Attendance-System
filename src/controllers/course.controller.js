@@ -82,6 +82,18 @@ class courseController {
       next(error);
     }
 }
+
+getMyCourses = async(req,res,next)=>{
+  try{
+    const courses = await this.courseService.getMyCourses(req.userId);
+    res.status(200).json({
+      success: true,
+      data: courses
+    });
+  }catch(error){
+    next(error);
+  }
+}
 }
 
 export default new courseController()

@@ -63,7 +63,7 @@ class MongoAttendanceRecordRepository extends IAttendanceRecordRepository {
       const record = await attendanceRecordModel.findByIdAndUpdate(
         recordId,
         data,
-        { new: true }
+        { new: true }   
       );
       
       if (!record) {
@@ -95,6 +95,7 @@ class MongoAttendanceRecordRepository extends IAttendanceRecordRepository {
     try {
       const records = await attendanceRecordModel.find({
         session: sessionId
+        
       });
       return records.map(r => r.student.toString());
     } catch (error) {

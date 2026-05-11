@@ -3,7 +3,7 @@ import ILectureRequestRepository from "../contracts/ILectureRequestRepository.js
 import { AppError } from "../../utils/errors.js";
 
 class MongoLectureRequestRepository extends ILectureRequestRepository {
-  async create(data) {
+  async create(teacherId,data) {
     try {
       return await lectureRequestModel.create(data);
     } catch (error) {

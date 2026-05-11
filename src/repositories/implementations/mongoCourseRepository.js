@@ -20,7 +20,11 @@ class mongoCourseRepository extends ICourseRepository {
   }
 
   async getCoursesByTeacherId (teacherId) {
-    let courses = await courseModel.find({ teacher: teacherId })
+    let courses = await courseModel
+      .find({ teacher: teacherId })
+      .populate('class', 'name section')
+      .populate('semester', 'name status')
+
     if (!courses) {
       throw new AppError('Error in fetching courses', 400)
     }
@@ -47,55 +51,65 @@ class mongoCourseRepository extends ICourseRepository {
         }
       },
 
-{
-  $project: {
-    name: 1,
-    code: 1,
-    type:1,
-    class: {
-      $arrayElemAt: [
-        {
-          $map: {
-            input: "$class",
-            as: "c",
-            in: "$$c.name"
+      {
+        $project: {
+          name: 1,
+          code: 1,
+          type: 1,
+          class: {
+            $arrayElemAt: [
+              {
+                $map: {
+                  input: '$class',
+                  as: 'c',
+                  in: '$$c.name'
+                }
+              },
+              0
+            ]
+          },
+          teacher: {
+            $arrayElemAt: [
+              {
+                $map: {
+                  input: '$teacher',
+                  as: 't',
+                  in: {
+                    $concat: ['$$t.firstName', ' ', '$$t.lastName']
+                  }
+                }
+              },
+              0
+            ]
           }
-        },
-        0
-      ]
-    },
-    teacher: {
-      $arrayElemAt: [
-        {
-          $map: {
-            input: "$teacher",
-            as: "t",
-            in: {
-              $concat: ["$$t.firstName", " ", "$$t.lastName"]
-            }
-          }
-        },
-        0
-      ]
-    }
-  }
-}
+        }
+      }
     ])
   }
-  async updateCourse(courseId,data){
-    const updatedCourse = await courseModel.findByIdAndUpdate(courseId,data,{new:true});
-    if(!updatedCourse){
-        throw new AppError("Course not found",404);
+  async updateCourse (courseId, data) {
+    const updatedCourse = await courseModel.findByIdAndUpdate(courseId, data, {
+      new: true
+    })
+    if (!updatedCourse) {
+      throw new AppError('Course not found', 404)
     }
-    return updatedCourse;
+    return updatedCourse
   }
-  async deleteCourse(courseId){
-    const deletedCourse = await courseModel.findByIdAndDelete(courseId);
-    if(!deletedCourse){
-        throw new AppError("Course not found",404);
+  async deleteCourse (courseId) {
+    const deletedCourse = await courseModel.findByIdAndDelete(courseId)
+    if (!deletedCourse) {
+      throw new AppError('Course not found', 404)
     }
-    return deletedCourse;
+    return deletedCourse
   }
+
+  async findById(courseId,teacherId){
+    const course = await courseModel.findOne({
+      _id: courseId,
+      teacher: teacherId
+    });
+    return course;
+  } 
 }
 
 export default mongoCourseRepository

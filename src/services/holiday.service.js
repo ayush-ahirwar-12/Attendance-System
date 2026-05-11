@@ -1,36 +1,36 @@
-import mongoHolidayRepository from "../repositories/implementations/mongoHolidayRepository.js";
-import { AppError } from "../utils/errors.js";
+import { semesterModel } from '../models/semester.model.js'
+import mongoHolidayRepository from '../repositories/implementations/mongoHolidayRepository.js'
+import { AppError } from '../utils/errors.js'
 
-class holidayService{
-    constructor() {
-        this.holidayRepository = new mongoHolidayRepository()
-    }
+class holidayService {
+  constructor () {
+    this.holidayRepository = new mongoHolidayRepository()
+  }
 
-    async createHoliday(holidayData) {
-        if(!holidayData.name || !holidayData.date) {
-            throw new AppError("Name and date are required to create a holiday.",404);
-        }
-        return await this.holidayRepository.create(holidayData);
-    }
+  async createHoliday ({ name, date, semesterId, type, managerId }) {
+    const semester = await semesterModel.findById(semesterId)
+    if (!semester) throw new Error('Semester not found')
 
-    async create(data) {
-        if(!data.name || !data.date) {
-            throw new AppError("Name and date are required to create a holiday.", 400);
-        }
-        return await this.holidayRepository.create(data);
-    }
+    return await this.holidayRepository.create({
+      name,
+      date,
+      type,
+      semester: semesterId,
+      createdBy: managerId
+    })
+  }
 
-    async findBySemester(semesterId) {
-        return await this.holidayRepository.findBySemester(semesterId);
-    }
+  async findBySemester (semesterId) {
+    return await this.holidayRepository.findBySemester(semesterId)
+  }
 
-    async getHolidayDateStrings(semesterId) {
-        return await this.holidayRepository.getHolidayDateStrings(semesterId);
-    }
+  async getHolidayDateStrings (semesterId) {
+    return await this.holidayRepository.getHolidayDateStrings(semesterId)
+  }
 
-    async deleteById(id) {
-        return await this.holidayRepository.deleteById(id);
-    }
+  async deleteById (id) {
+    return await this.holidayRepository.deleteById(id)
+  }
 }
 
-export default holidayService;
+export default holidayService

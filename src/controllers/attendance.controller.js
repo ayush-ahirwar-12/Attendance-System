@@ -49,10 +49,10 @@ class AttendanceController {
   };
 
   // New AttendanceRecord methods
-  createRecord = async (req, res, next) => {
+  markAttendance = async (req, res, next) => {
     try {
       const data = req.body;
-      const record = await this.attendanceService.createRecord(data);
+      const record = await this.attendanceService.markAttendance({...data,studentId: req.userId});
       res.status(201).json({
         success: true,
         data: record,
@@ -61,7 +61,7 @@ class AttendanceController {
     } catch (error) {
       next(error);
     }
-  };
+  };//
 
   bulkCreateRecords = async (req, res, next) => {
     try {
@@ -183,6 +183,23 @@ class AttendanceController {
       next(error);
     }
   };
+
+  manuallyMarkPresent = async (req, res, next) => {
+    try {
+      const { sessionId} = req.params;
+      const { studentId ,status} = req.body;
+      const userId = req.userId; // Assuming authentication middleware sets req.userId
+      const record = await this.attendanceService.manuallyMarkPresent(sessionId, studentId, status, userId);
+      res.status(200).json({
+        success: true,
+        data: record,
+        message: "Student manually marked present"
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
 }
 
 export default new AttendanceController();

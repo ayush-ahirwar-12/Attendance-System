@@ -6,8 +6,19 @@ const router = express.Router();
 
 router.use(authMiddleware);
 
-// Existing lecture routes
-router.post("/", lectureController.create);
+// Lecture Repository routes
+router.post("/bulk", lectureController.bulkCreateLectures);
+router.post("/", lectureController.createLecture);
+router.get("/teacher/:teacherId/today", lectureController.getTodayLectures);
+router.get("/teacher/:teacherId/week", lectureController.getWeekLectures);
+router.get("/:id", lectureController.getLectureById);
+router.get("/:id/with-class", lectureController.getLectureWithClass);
+router.get("/teacher/:teacherId/:lectureId", lectureController.getLectureByTeacherAndId);
+router.get("/teacher/:teacherId/:lectureId/scheduled", lectureController.getScheduledLecture);
+router.get("/course/:courseId/completed", lectureController.getCompletedLectures);
+router.patch("/:id/topic", lectureController.updateTopic);
+router.patch("/:id/status", lectureController.updateStatus);
+router.patch("/:id/cancel", lectureController.cancelLecture);
 
 // LectureRequest routes
 router.post("/request", lectureController.createLectureRequest);

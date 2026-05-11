@@ -8,7 +8,7 @@ class holidayController {
     create = async(req, res, next) => {
         try{
             const holidayData = req.body;
-            const newHoliday = await this.holidayService.createHoliday(holidayData);
+            const newHoliday = await this.holidayService.createHoliday({...holidayData,managerId:req.userId});
             res.status(201).json({
                 success: true,
                 data: newHoliday,

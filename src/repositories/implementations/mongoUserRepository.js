@@ -57,7 +57,7 @@ class MongoUserRepository extends IUserRepository {
             firstName: 1,
             lastName: 1,
             phoneNumber: 1,
-            googleId: 1,
+            faceEncoding:1,
             isVerified: 1,
             role: {
               $cond: [

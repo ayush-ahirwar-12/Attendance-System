@@ -6,13 +6,6 @@ class timeTableService{
         this.timeTableRepository = new mongoTimeTableRepository()
     }
 
-    async createTimeTable(timeTableData){
-        if(!timeTableData.semester || !timeTableData.course) {
-            throw new AppError("Semester and course are required to create a timetable.", 400);
-        }
-        return await this.timeTableRepository.create(timeTableData);
-    }
-
     async create(data) {
         if(!data.semester || !data.course) {
             throw new AppError("Semester and course are required to create a timetable.", 400);

@@ -9,7 +9,6 @@ class enrollmentController {
   enrollStudent = async (req, res, next) => {
     try {
       const { student, classId, courseId, enrolledBy, status } = req.body
-      console.log(req.body);
       const userId = req.userId // from authMiddleware
 
       // Prepare enrollment data

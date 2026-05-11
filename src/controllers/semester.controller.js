@@ -8,7 +8,8 @@ class semesterController{
     create = async(req, res, next) => {
         try{
             const semesterData = req.body;
-            const semester = await this.semesterService.createSemester(semesterData);
+            const managerId = req.userId;
+            const semester = await this.semesterService.createSemester({...semesterData,managerId});
             res.status(201).json({
                 success: true,
                 data: semester,
