@@ -8,9 +8,9 @@ router.use(authMiddleware);
 
 // Lecture Repository routes
 router.post("/bulk", lectureController.bulkCreateLectures);
-router.post("/", lectureController.createLecture);
-router.get("/teacher/:teacherId/today", lectureController.getTodayLectures);
-router.get("/teacher/:teacherId/week", lectureController.getWeekLectures);
+router.post("/create", lectureController.create);
+router.get("/teacher/today", lectureController.getTodayLectures);
+router.get("/teacher/week", lectureController.getWeekLectures);
 router.get("/:id", lectureController.getLectureById);
 router.get("/:id/with-class", lectureController.getLectureWithClass);
 router.get("/teacher/:teacherId/:lectureId", lectureController.getLectureByTeacherAndId);
@@ -23,8 +23,8 @@ router.patch("/:id/cancel", lectureController.cancelLecture);
 // LectureRequest routes
 router.post("/request", lectureController.createLectureRequest);
 router.get("/requests/pending", lectureController.getPendingLectureRequests);
-router.get("/requests/teacher/:teacherId", lectureController.getLectureRequestsByTeacher);
+router.get("/requests/teacher", lectureController.getLectureRequestsByTeacher);
 router.get("/requests/:id", lectureController.getLectureRequestById);
-router.put("/requests/:id/status", lectureController.updateLectureRequestStatus);
+router.patch("/requests/:id", lectureController.reviewRequest);
 
 export default router;

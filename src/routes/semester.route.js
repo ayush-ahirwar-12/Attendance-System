@@ -6,9 +6,9 @@ const router = express.Router();
 
 router.use(authMiddleware);
 
-router.post("/", semesterController.create);
-router.get("/", semesterController.findAll);
-router.get("/:id", semesterController.findById);
-router.put("/:id/status", semesterController.updateStatus);
+router.post("/create", semesterController.create);
+router.get("/getallsemester", semesterController.findAll);
+// router.get("/:id", semesterController.findById);
+router.patch("/update/:id", semesterController.updateStatus);
 
 export default router;

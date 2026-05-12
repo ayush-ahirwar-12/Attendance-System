@@ -200,6 +200,23 @@ class AttendanceController {
     }
   };
 
+  getMyAttendance = async (req, res, next) => {
+    try {
+      const studentId = req.userId; // Assuming authentication middleware sets req.userId
+      const courseId = req.params.courseId;
+
+      
+      const count = await this.attendanceService.getMyAttendanceReport(courseId, studentId);
+      res.status(200).json({
+        success: true,
+        data: { count },
+        message: `You have ${count} present records for the provided lectures`
+      });
+    }catch(error){
+      next(error);
+    }
+  }
+
 }
 
 export default new AttendanceController();

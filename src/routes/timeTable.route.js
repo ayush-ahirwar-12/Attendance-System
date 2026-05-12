@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.use(authMiddleware);
 
-router.post("/", timeTableController.create);
+router.post("/create", timeTableController.create);
 router.get("/semester/:semesterId", timeTableController.findBySemester);
 router.get("/semester/:semesterId/raw", timeTableController.findBySemesterRaw);
 router.delete("/:id", timeTableController.deleteById);

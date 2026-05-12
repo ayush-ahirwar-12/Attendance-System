@@ -12,6 +12,17 @@ import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20"
 import config from "./config/environment.js"
 import enrollmentRoute from "./routes/enrollment.route.js";
+import semesterRoute from "./routes/semester.route.js";
+import holidatyRoute from "./routes/holiday.route.js";
+import timeTableRoute from "./routes/timeTable.route.js";
+import lectureRoute from "./routes/lecture.route.js";
+import attendanceRoute from "./routes/attendance.route.js";
+import sessionRoute from "./routes/session.route.js";
+
+
+
+
+
 const {CLIENTID,CLIENTSECRET}= config;
 
 
@@ -41,6 +52,12 @@ app.use("/api/auth", UserRoute);
 app.use("/api/qr", qrRoute);
 app.use("/api/course", courseRoute);
 app.use("/api/enrollment", enrollmentRoute);
+app.use("/api/semester", semesterRoute);
+app.use("/api/holiday", holidatyRoute);
+app.use("/api/timetable",timeTableRoute);
+app.use("/api/lecture", lectureRoute);
+app.use("/api/attendance", attendanceRoute);
+app.use("/api/session", sessionRoute);
 
 app.get("/",(req,res)=>{
     res.send("Hello world")

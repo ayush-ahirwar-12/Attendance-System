@@ -65,7 +65,7 @@ class lectureController {
 
   getLectureRequestsByTeacher = async (req, res, next) => {
     try {
-      const { teacherId } = req.params
+      const teacherId = req.userId;
       const requests = await this.lectureService.getLectureRequestsByTeacher(
         teacherId
       )
