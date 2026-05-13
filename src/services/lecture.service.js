@@ -1,7 +1,7 @@
 import { semesterModel } from '../models/semester.model.js'
-import mongoLectureRepository from '../repositories/implementations/mongoLectureRepository'
+import mongoLectureRepository from '../repositories/implementations/mongoLectureRepository.js'
 import MongoLectureRequestRepository from '../repositories/implementations/mongoLectureRequestRepository.js'
-import { AppError } from '../utils/errors'
+import { AppError } from '../utils/errors.js'
 
 class lectureService {
   constructor () {

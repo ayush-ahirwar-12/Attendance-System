@@ -1,4 +1,4 @@
-import lectureService from '../services/lecture.service'
+import lectureService from '../services/lecture.service.js'
 
 class lectureController {
   constructor () {

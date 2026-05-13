@@ -1,4 +1,3 @@
-import MongoQrRepository from '../repositories/implementations/MongoQrRepository.js'
 import MongoAttendanceRecordRepository from '../repositories/implementations/mongoAttendanceRecordRepository.js'
 import MongoAttendanceSessionRepository from '../repositories/implementations/mongoAttendanceSessionRepository.js'
 import mongoEnrollRepository from '../repositories/implementations/mongoEnrollRepository.js'
@@ -8,7 +7,7 @@ import crypto from 'crypto'
 
 class sessionService {
   constructor () {
-    this.mongoSessionRepository = new MongoQrRepository()
+    this.mongoSessionRepository = new MongoAttendanceSessionRepository()
     this.attendanceSessionRepository = new MongoAttendanceSessionRepository()
     this.lectureRepo = new mongoLectureRepository()
     this.enrollmentRepo = new mongoEnrollRepository()

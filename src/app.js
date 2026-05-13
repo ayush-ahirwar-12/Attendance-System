@@ -5,7 +5,6 @@ import AuthRoute from "./routes/auth.route.js";
 import ClassRoute from "./routes/class.route.js"
 import RoleRoute from "./routes/role.route.js"
 import UserRoute from './routes/user.route.js'
-import qrRoute from "./routes/qr.route.js"
 import courseRoute from "./routes/course.route.js"
 import morgan from "morgan";
 import passport from "passport";
@@ -49,7 +48,6 @@ app.use("/api/auth", AuthRoute);
 app.use("/api/class", ClassRoute);
 app.use("/api/role", RoleRoute);
 app.use("/api/auth", UserRoute);
-app.use("/api/qr", qrRoute);
 app.use("/api/course", courseRoute);
 app.use("/api/enrollment", enrollmentRoute);
 app.use("/api/semester", semesterRoute);

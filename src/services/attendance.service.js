@@ -1,4 +1,3 @@
-import { attendanceModel } from '../models/attendance.model.js'
 import { AppError } from '../utils/errors.js'
 import MongoAttendanceRecordRepository from '../repositories/implementations/mongoAttendanceRecordRepository.js'
 import MongoAttendanceSessionRepository from '../repositories/implementations/mongoAttendanceSessionRepository.js'
@@ -13,8 +12,7 @@ class AttendanceService {
 
   // Existing methods for backward compatibility
   async getAttendanceBySession (qrSessionId) {
-    const attendanceRecords = await attendanceModel
-      .find({ qrSession: qrSessionId })
+    const attendanceRecords = await this.attendanceRecordRepository.findBySession(qrSessionId)
       .populate(
         'student',
         'firstName lastName email rollNo faceDescriptor phoneNumber'
@@ -86,12 +84,6 @@ class AttendanceService {
       throw new Error(
         `You are ${Math.round(distance)}m away. Must be within ${cls.radius}m`
       )
-    }
-
-    // Step 4: Face check
-    const student = await this.userRepository.findById(studentId)
-    if (!student.faceEncoding) {
-      throw new Error('Face not registered. Contact admin.')
     }
 
     // Step 4: Face check

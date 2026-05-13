@@ -9,5 +9,6 @@ router.get("/teacher",authMiddleware,courseController.fetchCoursesByTeacherId);
 router.get("/allcourses",authMiddleware,courseController.getAllCourses);
 router.patch("/update/:id",authMiddleware,courseController.updateCourse);
 router.delete("/delete/:id",authMiddleware,courseController.deleteCourse);
+router.get("/mycourses",authMiddleware,courseController.getMyCourses);
 
 export default router;
