@@ -14,5 +14,6 @@ export default {
     AWS_ACCESS_KEY:process.env.AWS_ACCESS_KEY,
     AWS_SECRET_KEY:process.env.AWS_SECRET_KEY,
     CLIENTID:process.env.CLIENT_ID,
-    CLIENTSECRET:process.env.CLIENT_SECRET
+    CLIENTSECRET:process.env.CLIENT_SECRET,
+    FRONTEND_URL:process.env.FRONTEND_URL
 }

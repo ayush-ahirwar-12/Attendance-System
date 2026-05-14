@@ -22,7 +22,7 @@ import sessionRoute from "./routes/session.route.js";
 
 
 
-const {CLIENTID,CLIENTSECRET}= config;
+const {CLIENTID,CLIENTSECRET,FRONTEND_URL}= config;
 
 
 const app = express()
@@ -30,7 +30,7 @@ app.use(morgan("dev"))
 app.use(express.json())
 app.use(cookie());
 app.use(cors({
-    origin: "http://localhost:3000",
+    origin: FRONTEND_URL,
     credentials: true
 }));
 
